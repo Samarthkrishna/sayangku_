@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the Message 💜</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #ff9ee5;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #a8a4ff;
+            margin-bottom: 20px;
+        }
+
+        .counter {
+            background: linear-gradient(45deg, #9d4edd, #7b2cbf);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.4rem;
+            display: inline-block;
+        }
+
+        /* Hunt Area */
+        .hunt-area {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .item {
+            background: rgba(157, 78, 221, 0.1);
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 158, 229, 0.3);
+        }
+
+        .item.found {
+            background: rgba(72, 187, 120, 0.2);
+            cursor: default;
+        }
+
+        .item i {
+            font-size: 3rem;
+            color: #ff9ee5;
+            margin-bottom: 15px;
+        }
+
+        .hint {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Message Board */
+        .message-board {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .fragments {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .fragment {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            opacity: 0.3;
+        }
+
+        .fragment.revealed {
+            opacity: 1;
+            background: rgba(157, 78, 221, 0.15);
+        }
+
+        /* Final Reveal */
+        .final-reveal {
+            background: rgba(157, 78, 221, 0.1);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            display: none;
+        }
+
+        .final-reveal.show {
+            display: block;
+        }
+
+        /* Video Player */
+        .video-player {
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        /* Buttons */
+        button {
+            background: linear-gradient(45deg, #9d4edd, #7b2cbf);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .upload-box {
+            border: 3px dashed rgba(255, 158, 229, 0.4);
+            border-radius: 20px;
+            padding: 40px;
+            cursor: pointer;
+            margin: 20px auto;
+            max-width: 500px;
+        }
+
+        .upload-box i {
+            font-size: 4rem;
+            color: #ff9ee5;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1><i class="fas fa-search-heart"></i> A Scavenger Hunt for You</h1>
+            <p class="subtitle">Find the 5 hidden items to reveal my message and song...</p>
+            <div class="counter">Found: <span id="foundCount">0</span>/5</div>
+        </header>
+
+        <!-- Clickable Hidden Items -->
+        <div class="hunt-area">
+            <div class="item" data-id="1">
+                <i class="fas fa-key"></i>
+                <div class="hint">Click me</div>
+            </div>
+            <div class="item" data-id="2">
+                <i class="fas fa-heart"></i>
+                <div class="hint">Click me</div>
+            </div>
+            <div class="item" data-id="3">
+                <i class="fas fa-star"></i>
+                <div class="hint">Click me</div>
+            </div>
+            <div class="item" data-id="4">
+                <i class="fas fa-gem"></i>
+                <div class="hint">Click me</div>
+            </div>
+            <div class="item" data-id="5">
+                <i class="fas fa-music"></i>
+                <div class="hint">Click me</div>
+            </div>
+        </div>
+
+        <!-- Revealed Message Parts -->
+        <div class="message-board">
+            <h2><i class="fas fa-scroll"></i> Message Fragments</h2>
+            <div class="fragments">
+                <div class="fragment" data-fragment="1">Every moment with you...</div>
+                <div class="fragment" data-fragment="2">...feels like a special treasure.</div>
+                <div class="fragment" data-fragment="3">You have a way of making ordinary days...</div>
+                <div class="fragment" data-fragment="4">...shine brighter than stars.</div>
+                <div class="fragment" data-fragment="5">This video song captures what I can't fully put into words.</div>
+            </div>
+        </div>
+
+        <!-- Final Reveal -->
+        <div id="finalReveal" class="final-reveal">
+            <h2><i class="fas fa-gift"></i> For You, My Treasure</h2>
+            <div class="full-message">
+                <p>Every moment with you feels like a special treasure. You have a way of making ordinary days shine brighter than stars.</p>
+                <p>This video song captures what I can't fully put into words. Thank you for being you. 💜</p>
+            </div>
+            
+            <div class="video-player">
+                <h3><i class="fas fa-video"></i> Our Video Song</h3>
+                <!-- VIDEO ADDED HERE -->
+                <video controls>
+                    <source src="special-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p style="text-align: center; margin-top: 15px; color: #a8a4ff;">
+                    Your special song is ready to play!
+                </p>
+            </div>
+            
+            <div style="text-align: center;">
+                <button id="replayBtn"><i class="fas fa-redo"></i> Play Again</button>
+            </div>
+        </div>
+
+        <!-- Simple Upload Section -->
+        <div class="upload-section">
+            <h3><i class="fas fa-film"></i> Want to Use a Different Video?</h3>
+            <p style="color: #a8a4ff; margin-bottom: 20px;">
+                Upload your own MP4 video file:
+            </p>
+            
+            <div class="upload-box" id="uploadBox">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click here to upload your video</p>
+                <p style="font-size: 0.9rem; color: #a8a4ff; margin-top: 10px;">
+                    MP4 files only (max 50MB)
+                </p>
+                <input type="file" id="videoUpload" accept="video/mp4" hidden>
+            </div>
+            
+            <p style="margin-top: 20px; color: #ff9ee5;">
+                Current video: <span id="currentVideo">special-video.mp4</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Game state
+        let foundItems = [];
+        const totalItems = 5;
+        const foundCountElement = document.getElementById('foundCount');
+        const finalReveal = document.getElementById('finalReveal');
+        const videoElement = document.querySelector('video');
+        
+        // Item click handler
+        document.querySelectorAll('.item').forEach(item => {
+            item.addEventListener('click', function() {
+                const itemId = parseInt(this.getAttribute('data-id'));
+                
+                if (foundItems.includes(itemId)) return;
+                
+                foundItems.push(itemId);
+                this.classList.add('found');
+                this.querySelector('.hint').textContent = 'Found! 🎉';
+                
+                // Reveal message fragment
+                const fragment = document.querySelector(`.fragment[data-fragment="${itemId}"]`);
+                fragment.classList.add('revealed');
+                
+                // Update counter
+                foundCountElement.textContent = foundItems.length;
+                
+                // Play sound
+                playFoundSound();
+                
+                // Check if all found
+                if (foundItems.length === totalItems) {
+                    setTimeout(() => {
+                        finalReveal.classList.add('show');
+                        playCelebrationSound();
+                        
+                        // Scroll to video
+                        setTimeout(() => {
+                            finalReveal.scrollIntoView({ behavior: 'smooth' });
+                        }, 500);
+                    }, 800);
+                }
+            });
+        });
+        
+        // Sound effects
+        function playFoundSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = 523.25;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            } catch (e) {
+                console.log("Audio not supported");
+            }
+        }
+        
+        function playCelebrationSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [523.25, 659.25, 783.99];
+                
+                notes.forEach((freq, index) => {
+                    setTimeout(() => {
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        
+                        oscillator.frequency.value = freq;
+                        oscillator.type = 'sine';
+                        
+                        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                        
+                        oscillator.start(audioContext.currentTime);
+                        oscillator.stop(audioContext.currentTime + 1);
+                    }, index * 100);
+                });
+            } catch (e) {
+                console.log("Audio not supported");
+            }
+        }
+        
+        // Replay button
+        document.getElementById('replayBtn').addEventListener('click', function() {
+            foundItems = [];
+            foundCountElement.textContent = '0';
+            
+            document.querySelectorAll('.item').forEach(item => {
+                item.classList.remove('found');
+                item.querySelector('.hint').textContent = 'Click me';
+            });
+            
+            document.querySelectorAll('.fragment').forEach(fragment => {
+                fragment.classList.remove('revealed');
+            });
+            
+            finalReveal.classList.remove('show');
+            videoElement.pause();
+            videoElement.currentTime = 0;
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Video upload
+        const uploadBox = document.getElementById('uploadBox');
+        const videoUpload = document.getElementById('videoUpload');
+        const currentVideoElement = document.getElementById('currentVideo');
+        
+        uploadBox.addEventListener('click', function() {
+            videoUpload.click();
+        });
+        
+        videoUpload.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Check if it's an MP4 file
+                if (file.type !== 'video/mp4') {
+                    alert('Please upload an MP4 video file.');
+                    return;
+                }
+                
+                // Check file size (max 50MB)
+                if (file.size > 50 * 1024 * 1024) {
+                    alert('Video file is too large. Please use a file under 50MB.');
+                    return;
+                }
+                
+                // Create a local URL for the file
+                const fileURL = URL.createObjectURL(file);
+                
+                // Update video player
+                videoElement.src = fileURL;
+                
+                // Update display
+                currentVideoElement.textContent = file.name;
+                
+                // Show success message
+                const originalHTML = uploadBox.innerHTML;
+                uploadBox.innerHTML = '<i class="fas fa-check-circle"></i><p>Video uploaded successfully!</p>';
+                uploadBox.style.borderColor = '#48bb78';
+                uploadBox.style.background = 'rgba(72, 187, 120, 0.1)';
+                
+                setTimeout(() => {
+                    uploadBox.innerHTML = originalHTML;
+                    uploadBox.style.borderColor = 'rgba(255, 158, 229, 0.4)';
+                    uploadBox.style.background = '';
+                }, 2000);
+            }
+        });
+        
+        // Initial animation
+        setTimeout(() => {
+            document.querySelectorAll('.item').forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.transform = 'translateY(-10px)';
+                    setTimeout(() => {
+                        item.style.transform = '';
+                    }, 500);
+                }, index * 200);
+            });
+        }, 1000);
+    </script>
+</body>
+</html>
