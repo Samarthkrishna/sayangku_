@@ -1,0 +1,280 @@
+/* Add these styles to your existing CSS */
+
+/* Video Player */
+.video-player-container {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 2px solid rgba(255, 158, 229, 0.2);
+}
+
+.video-player-container h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: #ff9ee5;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.video-player {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 25px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    background: #000;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+}
+
+/* Video Controls */
+.video-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.video-btn {
+    background: linear-gradient(45deg, #9d4edd, #7b2cbf);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.video-btn:hover {
+    background: linear-gradient(45deg, #7b2cbf, #9d4edd);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(157, 78, 221, 0.4);
+}
+
+/* Video Uploader */
+.video-uploader {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 40px;
+}
+
+.video-uploader h3 {
+    color: #ff9ee5;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+}
+
+.upload-instructions {
+    text-align: center;
+    color: #a8a4ff;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+/* Upload Options */
+.upload-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.upload-option {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.upload-option:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 158, 229, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.option-icon {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.option-icon i {
+    font-size: 3rem;
+    color: #ff9ee5;
+}
+
+.upload-option h4 {
+    color: #ffd6ff;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.upload-option p {
+    color: #a8a4ff;
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Local Upload Box */
+.upload-box {
+    border: 3px dashed rgba(255, 158, 229, 0.4);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.upload-box:hover {
+    border-color: #ff9ee5;
+    background: rgba(255, 158, 229, 0.05);
+}
+
+.upload-box i {
+    font-size: 2.5rem;
+    color: #ff9ee5;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.upload-box p {
+    margin: 0;
+    color: #fff;
+    font-size: 1rem;
+}
+
+/* YouTube Input */
+.youtube-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.youtube-input input {
+    flex: 1;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.youtube-input input:focus {
+    outline: none;
+    border-color: #ff9ee5;
+    box-shadow: 0 0 0 2px rgba(255, 158, 229, 0.2);
+}
+
+.youtube-input button {
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #ff0000, #cc0000);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.youtube-input button:hover {
+    background: linear-gradient(45deg, #cc0000, #ff0000);
+    transform: translateY(-2px);
+}
+
+/* Current Video Info */
+.current-video-info {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 25px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.current-video-info p {
+    margin: 0;
+    color: #a8a4ff;
+}
+
+.small-btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    background: rgba(255, 158, 229, 0.2);
+    border: 1px solid rgba(255, 158, 229, 0.3);
+}
+
+.small-btn:hover {
+    background: rgba(255, 158, 229, 0.3);
+}
+
+/* Formats Info */
+.formats-info {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.formats-info h4 {
+    color: #ff9ee5;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.formats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.format-tag {
+    background: rgba(157, 78, 221, 0.2);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #d4d4ff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.format-tag i {
+    color: #48bb78;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .upload-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .video-player {
+        max-width: 100%;
+    }
+    
+    .current-video-info {
+        flex-direction: column;
+        text-align: center;
+    }
+  }
